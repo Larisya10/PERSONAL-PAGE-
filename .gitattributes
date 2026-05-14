@@ -1,2 +1,1788 @@
-# Auto detect text files and perform LF normalization
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Wlafē Roastery Ultimate</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --dark: #2C1A0E;
+      --brown: #6B3F20;
+      --gold: #C9963B;
+      --cream: #FAF5EC;
+      --light: #fff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .page {
+      display: none;
+      padding-top: 90px;
+      min-height: 100vh;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px 5%;
+      background: rgba(44, 26, 14, .92);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)),
+        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    .hero-gallery img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+      transition: .4s;
+    }
+
+    .hero-gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* BUTTON */
+
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: black;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+    }
+
+    /* SECTION */
+
+    .container {
+      width: 90%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    /* GRID */
+
+    /* MENU GRID */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    @media(max-width:1200px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media(max-width:900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width:600px) {
+      .grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    /* CARD */
+
+    .card {
+      background: #ffffff;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+      transition: .3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      transition: .4s;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-content h3 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #2C1A0E;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #8B5E34;
+      margin-bottom: 20px;
+    }
+
+    .card-content .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 999px;
+      background: #9C6B43;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s;
+      margin-top: auto;
+    }
+
+    .card-content .btn:hover {
+      background: #7c5334;
+    }
+
+    /* IMAGE */
+
+    .card img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* CONTENT */
+
+    .card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    /* TITLE */
+
+    .card-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    /* PRICE */
+
+    .price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 10px 0 20px;
+    }
+
+    .card-content .btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 16px;
+      border-radius: 999px;
+      background: #9C6B43;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* BUTTON */
+
+    .card-content .btn {
+      width: 100%;
+    }
+
+    /* CARD */
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 24px;
+    }
+
+    .price {
+      margin: 14px 0;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    /* FILTER */
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .filter-btn.active {
+      background: var(--brown);
+      color: white;
+    }
+
+    /* DASHBOARD */
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .dashboard-card {
+      background: white;
+      padding: 25px;
+      border-radius: 24px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+    }
+
+    .stock-warning {
+      margin-top: 15px;
+      color: red;
+      font-weight: bold;
+    }
+
+    /* CART */
+
+    .cart-sidebar {
+      position: fixed;
+      right: -420px;
+      top: 0;
+      width: 400px;
+      height: 100%;
+      background: white;
+      padding: 30px;
+      transition: .4s;
+      z-index: 99999;
+      overflow-y: auto;
+      box-shadow: -10px 0 20px rgba(0, 0, 0, .1);
+    }
+
+    .cart-sidebar.active {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-cart {
+      font-size: 34px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .qty button {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+    }
+
+    .modal-box {
+      background: white;
+      padding: 30px;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    /* FORM */
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    /* PAYMENT */
+
+    .payment-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .payment-option {
+      padding: 16px;
+      border: 2px solid #ddd;
+      border-radius: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .payment-option.active {
+      border-color: var(--gold);
+      background: #fff5dd;
+    }
+
+    /* REVIEW */
+
+    .review-card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+
+    /* TABLE */
+
+    .stock-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .stock-table th,
+    .stock-table td {
+      padding: 14px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 5%;
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--dark);
+      color: white;
+      padding: 15px 24px;
+      border-radius: 14px;
+      display: none;
+      z-index: 999999;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px) {
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: var(--dark);
+        padding: 20px;
+        flex-direction: column;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .cart-sidebar {
+        width: 100%;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <div class="navbar">
+
+    <div class="logo">Wlafē</div>
+
+    <div class="nav-links" id="navLinks">
+
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('menu')">Menu</a>
+      <a onclick="showPage('dashboard')">Dashboard</a>
+      <a onclick="showPage('reviews')">Reviews</a>
+      <a onclick="showPage('reservation')">Reservation</a>
+      <a onclick="showPage('contact')">Contact</a>
+
+      <a onclick="toggleCart()">
+        Cart (<span id="cartCount">0</span>)
+      </a>
+
+      <a onclick="openAuth()">
+        Login
+      </a>
+
+    </div>
+
+    <div class="hamburger" onclick="toggleNav()">☰</div>
+
+  </div>
+
+  <!-- HOME -->
+
+  <div id="home" class="page active">
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <h1>Every Cup Tells a Warm Story</h1>
+
+        <p>
+          Premium artisan coffee experience with modern comfort and elegant atmosphere.
+        </p>
+
+        <div class="hero-buttons">
+
+          <button class="btn btn-primary" onclick="showPage('menu')">
+            Order Now
+          </button>
+
+          <button class="btn btn-outline" onclick="showPage('reservation')">
+            Reserve Table
+          </button>
+
+        </div>
+
+        <div class="hero-gallery">
+
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop">
+
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop">
+
+          <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop">
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- MENU -->
+
+  <div id="menu" class="page">
+
+    <section class="container">
+
+      <div class="section-title">
+        <h2>Discover Our Signature Menu</h2>
+      </div>
+
+      <div class="filter-buttons">
+
+        <button class="filter-btn active" onclick="filterMenu('all',this)">
+          All
+        </button>
+
+        <button class="filter-btn" onclick="filterMenu('coffee',this)">
+          Coffee
+        </button>
+
+        <button class="filter-btn" onclick="filterMenu('noncoffee',this)">
+          Non Coffee
+        </button>
+
+      </div>
+
+      <div class="grid">
+
+        <!-- MENU 1 -->
+        <div class="card menu-item coffee">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200&auto=format&fit=crop">
+
+          <div class="card-content">
+            <h3>Caramel Macchiato</h3>
+            <div class="price">Rp 32.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Caramel Macchiato',32000,'☕')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- MENU 2 -->
+        <div class="card menu-item coffee">
+          <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=800&auto=format&fit=crop&q=60">
+
+          <div class="card-content">
+            <h3>Espresso</h3>
+            <div class="price">Rp 28.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Espresso',28000,'☕')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- MENU 3 -->
+        <div class="card menu-item coffee">
+          <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=800&auto=format&fit=crop&q=60">
+
+          <div class="card-content">
+            <h3>Cappuccino</h3>
+            <div class="price">Rp 30.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Cappuccino',30000,'☕')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- MENU 4 -->
+        <div class="card menu-item coffee">
+          <img src="https://images.unsplash.com/photo-1531835207745-506a1bc035d8?w=800&auto=format&fit=crop&q=60">
+
+          <div class="card-content">
+            <h3>Americano</h3>
+            <div class="price">Rp 35.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Americano',35000,'☕')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- MENU 5 -->
+        <div class="card menu-item coffee">
+          <img src="https://images.unsplash.com/photo-1625021658694-dcbfc4d0fc33?w=800&auto=format&fit=crop&q=60">
+
+          <div class="card-content">
+            <h3>Brown Sugar Coffee</h3>
+            <div class="price">Rp 28.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Brown Sugar Coffee',28000,'☕')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- MENU 6 -->
+        <div class="card menu-item noncoffee">
+          <img src="https://images.unsplash.com/photo-1717603545758-88cc454db69b?q=80&w=774&auto=format&fit=crop">
+
+          <div class="card-content">
+            <h3>Matcha</h3>
+            <div class="price">Rp 35.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Matcha',35000,'🍵')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+
+        <!-- MENU 7 -->
+        <div class="card menu-item noncoffee">
+          <img src="https://bakewithshivesh.com/wp-content/uploads/2022/02/IMG-5357-1-768x960.jpg">
+
+          <div class="card-content">
+            <h3>Red Velvet</h3>
+            <div class="price">Rp 33.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Red Velvet',33000,'🥤')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <!-- MENU 8 -->
+        <div class="card menu-item noncoffee">
+          <img src="https://images.unsplash.com/photo-1582570653002-8d512b39147a?q=80&w=766&auto=format&fit=crop">
+
+          <div class="card-content">
+            <h3>Taro Latte</h3>
+            <div class="price">Rp 34.000</div>
+
+            <button class="btn btn-primary" onclick="addToCart('Taro Latte',34000,'🍠')">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <<!-- MENU 9 -->
+          <div class="card menu-item noncoffee">
+            <img src="https://images.unsplash.com/photo-1586195831800-24f14c992cea?w=800&auto=format&fit=crop&q=60">
+
+            <div class="card-content">
+              <h3>Chocolate</h3>
+              <div class="price">Rp 35.000</div>
+
+              <button class="btn btn-primary" onclick="addToCart('Chocolate',35000,'🍫')">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- MENU 10 -->
+          <div class="card menu-item noncoffee">
+            <img
+              src="https://images.unsplash.com/photo-1592099759599-24b131b8e824?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGljZSUyMHRlYXxlbnwwfHwwfHx8MA%3D%3D">
+
+            <div class="card-content">
+              <h3>Lemon tea</h3>
+              <div class="price">Rp 20.000</div>
+
+              <button class="btn btn-primary" onclick="addToCart('Lemon tea',20000,'🍋')">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- MENU 11 -->
+          <div class="card menu-item noncoffee">
+            <img
+              src="https://images.unsplash.com/photo-1695550009001-122e60c16859?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWlsa3RlYXxlbnwwfHwwfHx8MA%3D%3D">
+
+            <div class="card-content">
+              <h3>Milktea</h3>
+              <div class="price">Rp 22.000</div>
+
+              <button class="btn btn-primary" onclick="addToCart('Milktea',22000,'🥤')">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+          <!-- Menu 12 -->
+
+          <div class="card menu-item coffee">
+
+            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="card-content">
+
+              <h3>Vanilla Latte</h3>
+
+              <div class="price">Rp 33.000</div>
+
+              <button class="btn btn-primary" onclick="addToCart('Vanilla Latte',33000,'☕')">
+
+                Add To Cart
+
+              </button>
+
+            </div>
+
+          </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- DASHBOARD -->
+
+  <div id="dashboard" class="page">
+
+    <section class="container">
+
+      <div class="section-title">
+
+        <h2>Admin Dashboard</h2>
+
+        <p>Customer • Barista • Moderator System</p>
+
+      </div>
+
+      <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+          <h3>Total Orders</h3>
+
+          <h1 id="orderCount">184</h1>
+
+        </div>
+
+        <div class="dashboard-card">
+
+          <h3>Revenue</h3>
+
+          <h1 id="revenueText">Rp 12.400.000</h1>
+
+        </div>
+
+        <div class="dashboard-card">
+
+          <h3>Current Role</h3>
+
+          <p id="roleText">Customer</p>
+
+        </div>
+
+      </div>
+
+      <div class="dashboard-card" style="margin-top:30px;">
+
+        <h2>Automatic Ingredient Stock</h2>
+
+        <table class="stock-table">
+
+          <tr>
+            <th>Ingredient</th>
+            <th>Stock</th>
+          </tr>
+
+          <tr>
+            <td>Gula</td>
+            <td id="sugarStock">100 gr</td>
+          </tr>
+
+          <tr>
+            <td>Milk</td>
+            <td id="milkStock">10 L</td>
+          </tr>
+
+          <tr>
+            <td>Espresso Beans</td>
+            <td id="beanStock">4000 gr</td>
+          </tr>
+
+        </table>
+
+        <p class="stock-warning" id="stockWarning"></p>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- REVIEWS -->
+
+  <div id="reviews" class="page">
+
+    <section class="container">
+
+      <div class="section-title">
+        <h2>Customer Reviews</h2>
+      </div>
+
+      <input type="text" id="username" placeholder="Nama Anda">
+
+      <select id="rating">
+
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+
+      </select>
+
+      <textarea id="reviewText" placeholder="Tulis review..."></textarea>
+
+      <button class="btn btn-primary" onclick="submitReview()">
+        Kirim Review
+      </button>
+
+      <div id="reviewsContainer"></div>
+
+    </section>
+
+  </div>
+
+  <!-- RESERVATION -->
+
+  <div id="reservation" class="page">
+
+    <section class="container">
+
+      <div class="section-title">
+
+        <h2>Reserve Your Table</h2>
+
+      </div>
+
+      <input type="text" id="reserveName" placeholder="Your Name">
+
+      <input type="date" id="reserveDate">
+
+      <select>
+
+        <option>2 People</option>
+        <option>4 People</option>
+        <option>6 People</option>
+
+      </select>
+
+      <button class="btn btn-primary" onclick="reserveTable()">
+
+        Confirm Reservation
+
+      </button>
+
+    </section>
+
+  </div>
+
+  <!-- CONTACT -->
+
+  <div id="contact" class="page">
+
+    <section class="container">
+
+      <div class="section-title">
+        <h2>Contact Us</h2>
+      </div>
+
+      <input type="text" placeholder="Full Name">
+
+      <input type="email" placeholder="Email">
+
+      <textarea rows="6" placeholder="Message"></textarea>
+
+      <button class="btn btn-primary" onclick="showToast('Message Sent Successfully')">
+
+        Submit
+
+      </button>
+
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+
+  <div class="footer">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <h2>Wlafē Roastery</h2>
+
+        <p>Luxury coffee experience.</p>
+
+      </div>
+
+      <div>
+
+        <h3>Social Media</h3>
+
+        <p>Instagram : @wlaferoastery</p>
+
+        <p>TikTok : @wlaferoastery</p>
+
+      </div>
+
+      <div>
+
+        <h3>Contact</h3>
+
+        <p>Jl. Mojopahit No.12 Surabaya</p>
+
+        <p>082343987321</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CART -->
+
+  <div class="cart-sidebar" id="cartSidebar">
+
+    <div class="cart-header">
+
+      <h2>Your Cart</h2>
+
+      <span class="close-cart" onclick="closeCart()">
+        ×
+      </span>
+
+    </div>
+
+    <div id="cartItems"></div>
+
+    <h3 id="totalPrice">Total: Rp 0</h3>
+
+    <br>
+
+    <button class="btn btn-primary" style="width:100%" onclick="openCheckout()">
+
+      Checkout
+
+    </button>
+
+  </div>
+
+  <!-- CHECKOUT -->
+
+  <div class="modal" id="checkoutModal">
+
+    <div class="modal-box">
+
+      <h2>Checkout</h2>
+
+      <input type="text" placeholder="Nama">
+
+      <input type="text" placeholder="Nomor Telepon">
+
+      <select id="deliveryMethod">
+
+        <option>Pickup Store</option>
+
+        <option>Take Away</option>
+
+        <option>Grab Delivery</option>
+
+      </select>
+
+      <div class="payment-options">
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          OVO
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          GoPay
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          DANA
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          BCA
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          BNI
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          Mandiri
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary" onclick="placeOrder()">
+
+
+
+        Place Order
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- LOGIN -->
+
+  <div class="modal" id="authModal">
+
+    <div class="modal-box">
+
+      <h2 style="margin-bottom:20px">
+        Login / Register
+      </h2>
+
+      <input type="text" id="authName" placeholder="Nama Lengkap">
+
+      <input type="email" id="authEmail" placeholder="Email">
+
+      <input type="password" id="authPassword" placeholder="Password">
+
+      <button class="btn btn-primary" style="width:100%" onclick="loginUser()">
+
+        Login
+
+      </button>
+
+      <button class="btn btn-outline" style="width:100%;color:black;border:1px solid black;margin-top:10px"
+        onclick="registerUser()">
+
+        Register
+
+      </button>
+
+      <button class="btn btn-outline" style="width:100%;color:black;border:1px solid black;margin-top:10px"
+        onclick="closeAuth()">
+
+        Close
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- TOAST -->
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+
+    let cart = [];
+
+    let sugarStock = 100;
+    let milkStock = 10;
+    let beanStock = 4000;
+
+    let revenue = 12400000;
+    let totalOrders = 184;
+
+    let currentUser = null;
+
+    /* MOBILE MENU */
+
+    function toggleNav() {
+
+      document.getElementById('navLinks')
+        .classList.toggle('show');
+
+    }
+
+    /* PAGE */
+
+    function showPage(page) {
+
+      document.querySelectorAll('.page')
+        .forEach(p => p.classList.remove('active'));
+
+      document.getElementById(page)
+        .classList.add('active');
+
+      window.scrollTo(0, 0);
+
+    }
+
+    /* LOGIN */
+
+    function openAuth() {
+
+      document.getElementById('authModal')
+        .style.display = 'flex';
+
+    }
+
+    function closeAuth() {
+
+      document.getElementById('authModal')
+        .style.display = 'none';
+
+    }
+
+    function registerUser() {
+
+      const name =
+        document.getElementById('authName').value;
+
+      const email =
+        document.getElementById('authEmail').value;
+
+      const password =
+        document.getElementById('authPassword').value;
+
+      if (name === '' || email === '' || password === '') {
+
+        showToast('Lengkapi data register');
+
+        return;
+
+      }
+
+      localStorage.setItem('wlafeUser',
+        JSON.stringify({
+          name,
+          email,
+          password
+        }));
+
+      showToast('Register berhasil');
+
+    }
+
+    function loginUser() {
+
+      const email =
+        document.getElementById('authEmail').value;
+
+      const password =
+        document.getElementById('authPassword').value;
+
+      const user =
+        JSON.parse(localStorage.getItem('wlafeUser'));
+
+      if (!user) {
+
+        showToast('Akun belum terdaftar');
+
+        return;
+
+      }
+
+      if (user.email !== email ||
+        user.password !== password) {
+
+        showToast('Email / password salah');
+
+        return;
+
+      }
+
+      currentUser = user;
+
+      document.getElementById('roleText')
+        .innerText = 'Customer';
+
+      showToast('Welcome ' + user.name);
+
+      closeAuth();
+
+    }
+
+    /* CART */
+
+    function toggleCart() {
+
+      if (!currentUser) {
+
+        showToast('Login terlebih dahulu');
+
+        openAuth();
+
+        return;
+
+      }
+
+      document.getElementById('cartSidebar')
+        .classList.toggle('active');
+
+    }
+
+    function closeCart() {
+
+      document.getElementById('cartSidebar')
+        .classList.remove('active');
+
+    }
+
+    /* ADD CART */
+
+    function addToCart(name, price, icon) {
+
+      if (!currentUser) {
+
+        showToast('Silahkan login dahulu');
+
+        openAuth();
+
+        return;
+
+      }
+
+      const existing =
+        cart.find(i => i.name === name);
+
+      if (existing) {
+
+        existing.qty++;
+
+      } else {
+
+        cart.push({
+          name,
+          price,
+          icon,
+          qty: 1
+        });
+
+      }
+
+      /* STOCK REDUCTION */
+
+      sugarStock -= 2;
+      milkStock -= 0.3;
+      beanStock -= 18;
+
+      if (sugarStock < 0) sugarStock = 0;
+      if (milkStock < 0) milkStock = 0;
+      if (beanStock < 0) beanStock = 0;
+
+      document.getElementById('sugarStock')
+        .innerText =
+        sugarStock.toFixed(0) + ' gr';
+
+      document.getElementById('milkStock')
+        .innerText =
+        milkStock.toFixed(1) + ' L';
+
+      document.getElementById('beanStock')
+        .innerText =
+        beanStock.toFixed(0) + ' gr';
+
+      /* WARNING */
+
+      if (
+        sugarStock <= 20 ||
+        milkStock <= 2 ||
+        beanStock <= 500
+      ) {
+
+        document.getElementById('stockWarning')
+          .innerText =
+          '⚠ Stock hampir habis, segera restock!';
+
+      }
+
+      renderCart();
+
+      showToast(name + ' ditambahkan');
+
+    }
+
+    /* RENDER CART */
+
+    function renderCart() {
+
+      const cartItems =
+        document.getElementById('cartItems');
+
+      cartItems.innerHTML = '';
+
+      let total = 0;
+
+      cart.forEach(item => {
+
+        total += item.price * item.qty;
+
+        cartItems.innerHTML += `
+
+    <div class="cart-item">
+
+    <div>
+
+    <b>${item.icon} ${item.name}</b><br>
+
+    Rp ${item.price.toLocaleString('id-ID')}
+
+    </div>
+
+    <div class="qty">
+
+    <button onclick="changeQty('${item.name}',-1)">
+    -
+    </button>
+
+    ${item.qty}
+
+    <button onclick="changeQty('${item.name}',1)">
+    +
+    </button>
+
+    </div>
+
+    </div>
+
+    `;
+
+      });
+
+      document.getElementById('cartCount')
+        .innerText =
+        cart.reduce((a, b) => a + b.qty, 0);
+
+      document.getElementById('totalPrice')
+        .innerText =
+        'Total: Rp ' +
+        total.toLocaleString('id-ID');
+
+    }
+
+    /* CHANGE QTY */
+
+    function changeQty(name, delta) {
+
+      const item =
+        cart.find(i => i.name === name);
+
+      if (!item) return;
+
+      item.qty += delta;
+
+      if (item.qty <= 0) {
+
+        cart =
+          cart.filter(i => i.name !== name);
+
+      }
+
+      renderCart();
+
+    }
+
+    /* CHECKOUT */
+
+    function openCheckout() {
+
+      if (cart.length === 0) {
+
+        showToast('Cart kosong');
+
+        return;
+
+      }
+
+      document.getElementById('checkoutModal')
+        .style.display = 'flex';
+
+    }
+
+    function selectPayment(el) {
+
+      document.querySelectorAll('.payment-option')
+        .forEach(p => p.classList.remove('active'));
+
+      el.classList.add('active');
+
+    }
+
+    function placeOrder() {
+
+      const payment =
+        document.querySelector('.payment-option.active');
+
+      if (!payment) {
+
+        showToast('Pilih pembayaran');
+
+        return;
+
+      }
+
+      let total = 0;
+
+      let orderText = '';
+
+      cart.forEach(item => {
+
+        total += item.price * item.qty;
+
+        orderText +=
+          `${item.name} x${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}%0A`;
+
+      });
+
+      revenue += total;
+      totalOrders += 1;
+
+      document.getElementById('revenueText')
+        .innerText =
+        'Rp ' +
+        revenue.toLocaleString('id-ID');
+
+      document.getElementById('orderCount')
+        .innerText =
+        totalOrders;
+
+      /* DATA CUSTOMER */
+
+      const customerName =
+        currentUser.name;
+
+      const delivery =
+        document.getElementById('deliveryMethod').value;
+
+      const paymentMethod =
+        payment.innerText;
+
+      /* FORMAT PESAN WHATSAPP */
+
+      const whatsappMessage =
+        `Halo Wlafē Roastery ☕%0A%0A` +
+
+        `Saya ingin melakukan pesanan:%0A%0A` +
+
+        orderText +
+
+        `%0ATotal: Rp ${total.toLocaleString('id-ID')}%0A` +
+
+        `Delivery: ${delivery}%0A` +
+
+        `Payment: ${paymentMethod}%0A` +
+
+        `Nama Customer: ${customerName}`;
+
+      /* NOMOR WHATSAPP CAFE */
+
+      const whatsappNumber = '628234987321';
+
+      /* OPEN WHATSAPP */
+
+      window.open(
+        `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`,
+        '_blank'
+      );
+
+      showToast('Pesanan berhasil dibuat');
+
+      cart = [];
+
+      renderCart();
+
+      document.getElementById('checkoutModal')
+        .style.display = 'none';
+
+      closeCart();
+
+    }
+
+    /* REVIEW */
+
+    function submitReview() {
+
+      const username =
+        document.getElementById('username').value;
+
+      const rating =
+        document.getElementById('rating').value;
+
+      const review =
+        document.getElementById('reviewText').value;
+
+      if (username === '' || review === '') {
+
+        showToast('Lengkapi review');
+
+        return;
+
+      }
+
+      document.getElementById('reviewsContainer')
+        .innerHTML += `
+
+    <div class="review-card">
+
+    <h3>${username}</h3>
+
+    <p>${'⭐'.repeat(rating)}</p>
+
+    <p>${review}</p>
+
+    </div>
+
+    `;
+
+      showToast('Review berhasil');
+
+    }
+
+    /* RESERVATION */
+
+    function reserveTable() {
+
+      if (!currentUser) {
+
+        showToast('Login terlebih dahulu');
+
+        openAuth();
+
+        return;
+
+      }
+
+      const name =
+        document.getElementById('reserveName').value;
+
+      const date =
+        document.getElementById('reserveDate').value;
+
+      if (name === '' || date === '') {
+
+        showToast('Lengkapi reservasi');
+
+        return;
+
+      }
+
+      showToast(
+        'Reservasi berhasil untuk ' + name
+      );
+
+    }
+
+    /* FILTER */
+
+    function filterMenu(category, btn) {
+
+      document.querySelectorAll('.filter-btn')
+        .forEach(b => b.classList.remove('active'));
+
+      btn.classList.add('active');
+
+      document.querySelectorAll('.menu-item')
+        .forEach(item => {
+
+          if (category === 'all' ||
+            item.classList.contains(category)) {
+
+            item.style.display = 'block';
+
+          } else {
+
+            item.style.display = 'none';
+
+          }
+
+        });
+
+    }
+
+    /* TOAST */
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById('toast');
+
+      toast.innerText = message;
+
+      toast.style.display = 'block';
+
+      setTimeout(() => {
+
+        toast.style.display = 'none';
+
+      }, 3000);
+
+    }
+
+    /* INIT */
+
+    renderCart();
+
+  </script>
+
+</body>
+
+</html> # Auto detect text files and perform LF normalization
 * text=auto
